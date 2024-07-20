@@ -9,6 +9,7 @@ namespace api.Mapper
         {
             return new VinesDto
             {
+                Id = VinesModel.Id,
                 Name = VinesModel.Name,
                 CreatedOn = VinesModel.CreatedOn
             };

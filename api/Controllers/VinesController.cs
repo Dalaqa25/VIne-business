@@ -1,6 +1,8 @@
 ﻿using api.Data;
 using api.Dtos;
+using api.Interfaces;
 using api.Mapper;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,15 +13,17 @@ namespace api.Controllers
     public class VinesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public VinesController(ApplicationDbContext context)
+        private readonly VinesInterface _vinesRepo;
+        public VinesController(ApplicationDbContext context, VinesInterface vinesRepo)
         {
             _context = context;
+            _vinesRepo = vinesRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var vines = await _context.Vines.ToListAsync();
+            var vines = await _vinesRepo.GetAllAsync();
 
             var vinesDto = vines.Select(s => s.ToVinesDto());
 
@@ -29,7 +33,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var vines = await _context.Vines.FindAsync(id);
+            var vines = await _vinesRepo.GetByIdAsync(id);
 
             if (vines == null)
             {

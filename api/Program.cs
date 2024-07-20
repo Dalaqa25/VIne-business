@@ -1,4 +1,7 @@
+using api;
 using api.Data;
+using api.Interfaces;
+using api.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefualtConnection"));
 });
 
+//connecting interface to repo
+builder.Services.AddScoped<GrapesInterface, GrapesRepo>();
+builder.Services.AddScoped<VinesInterface, VinesRepo>();
 
 var app = builder.Build();
 

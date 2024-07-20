@@ -1,5 +1,7 @@
-﻿using api.Dtos.Grapes;
+﻿using api.Dtos;
+using api.Dtos.Grapes;
 using api.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace api.Mapper
 {
@@ -9,7 +11,16 @@ namespace api.Mapper
         {
             return new GrapesDto
             {
+                Id = grapesModel.Id,
                 Name = grapesModel.Name
+            };
+        }
+
+        public static Grapes ToGrapesToCreateDto(this CreateGrapesDto createGrapesDto)
+        {
+            return new Grapes
+            {
+                Name = createGrapesDto.Name
             };
         }
     }
