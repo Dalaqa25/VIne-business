@@ -42,5 +42,13 @@ namespace api.Controllers
 
             return Ok(vines.ToVinesDto());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateVinesDto createVinesDto)
+        {
+            var vinesModel = createVinesDto.ToVinesFromCreate();
+            await _vinesRepo.CreateAsync(vinesModel);
+            return CreatedAtAction(nameof(GetById), new {id = vinesModel.Id}, vinesModel.ToVinesDto());
+        }
     }
 }

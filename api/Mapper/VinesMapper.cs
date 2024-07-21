@@ -14,5 +14,14 @@ namespace api.Mapper
                 CreatedOn = VinesModel.CreatedOn
             };
         }
+
+        public static Vines ToVinesFromCreate(this CreateVinesDto createVinesDto)
+        {
+            return new Vines
+            {
+                Name = createVinesDto.Name,
+                CreatedOn = createVinesDto.CreatedOn
+            };
+        }
     }
 }

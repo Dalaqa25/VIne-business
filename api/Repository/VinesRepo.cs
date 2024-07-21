@@ -13,6 +13,13 @@ public class VinesRepo : VinesInterface
         _context = context;
     }
 
+    public async Task<Vines?> CreateAsync(Vines vinesModel)
+    {
+        await _context.Vines.AddAsync(vinesModel);
+        await _context.SaveChangesAsync();
+        return vinesModel;
+    }
+
     public async Task<List<Vines>> GetAllAsync()
     {
         return await _context.Vines.ToListAsync();
