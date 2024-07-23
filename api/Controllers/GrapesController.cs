@@ -47,10 +47,38 @@ namespace api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateGrapesDto createGrapesDto)
-        {
+        {   
             var grapesModel = createGrapesDto.ToGrapesToCreateDto();
             await _grapesRepo.CreateAsync(grapesModel);
             return CreatedAtAction(nameof(GetById), new {id = grapesModel.Id},grapesModel.ToGrapesDto()); 
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateGrapesDto updateGrapes)
+        {
+            var grapesModel = await _grapesRepo.UpdateAsync(id, updateGrapes);
+
+            if (grapesModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(grapesModel.ToGrapesDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delte([FromRoute] int id)
+        {
+            var grapesModel = await _grapesRepo.DeleteAsync(id);
+
+            if (grapesModel == null)
+            {
+                return NotFound();
+            }
+
+             return NoContent();
         }
     }
 }

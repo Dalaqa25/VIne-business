@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using api.Dtos;
+using api.Models;
 
 namespace api.Interfaces 
 {
@@ -7,5 +8,7 @@ namespace api.Interfaces
         Task<List<Vines>> GetAllAsync();
         Task<Vines?> GetByIdAsync(int id);
         Task<Vines?> CreateAsync(Vines vinesModel);
+        Task<Vines?> UpdateAsync(int id, UpdateVinesDto updateVinesDto);
+        Task<Vines?> DeleteAsync(int id);
     }
 }

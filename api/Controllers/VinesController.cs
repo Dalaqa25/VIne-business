@@ -50,5 +50,33 @@ namespace api.Controllers
             await _vinesRepo.CreateAsync(vinesModel);
             return CreatedAtAction(nameof(GetById), new {id = vinesModel.Id}, vinesModel.ToVinesDto());
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateVinesDto updateVinesDto)
+        {
+            var vinesModel = await _vinesRepo.UpdateAsync(id,updateVinesDto);
+            
+            if (vinesModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(vinesModel.ToVinesDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delte([FromRoute] int id)
+        {
+            var vinesModel = await _vinesRepo.DeleteAsync(id);
+
+            if (vinesModel == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
     }
 }
