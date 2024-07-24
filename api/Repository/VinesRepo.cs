@@ -41,12 +41,12 @@ public class VinesRepo : VinesInterface
 
     public async Task<List<Vines>> GetAllAsync()
     {
-        return await _context.Vines.ToListAsync();
+        return await _context.Vines.Include(v => v.Grape).ToListAsync();
     }
 
     public async Task<Vines?> GetByIdAsync(int id)
     {
-        return await _context.Vines.FindAsync(id);
+        return await _context.Vines.Include(v => v.Grape).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Vines?> UpdateAsync(int id, UpdateVinesDto updateVinesDto)

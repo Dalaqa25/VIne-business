@@ -11,7 +11,8 @@ namespace api.Mapper
             {
                 Id = VinesModel.Id,
                 Name = VinesModel.Name,
-                CreatedOn = VinesModel.CreatedOn
+                CreatedOn = VinesModel.CreatedOn,
+                Grape = VinesModel.Grape.Select(c => c.ToGrapesDto()).ToList()
             };
         }
 
