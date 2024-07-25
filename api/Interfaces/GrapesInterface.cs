@@ -10,5 +10,6 @@ namespace api.Interfaces
         Task<Grapes?> CreateAsync(Grapes grapesModel);
         Task<Grapes?> UpdateAsync(int id, UpdateGrapesDto updateGrapesDto);
         Task<Grapes?> DeleteAsync(int id);
+        Task<bool> VinesExistsAsync(int VinesId);
     }
 }

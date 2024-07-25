@@ -12,16 +12,17 @@ namespace api.Mapper
             return new GrapesDto
             {
                 Id = grapesModel.Id,
-                Name = grapesModel.Name,
-                VinesId = grapesModel.VinesId,  
+                Name = grapesModel.Name, 
+                VinesId = grapesModel.VinesId,
             };
         }
 
-        public static Grapes ToGrapesToCreateDto(this CreateGrapesDto createGrapesDto)
+        public static Grapes ToGrapesFromCreate(this CreateGrapesDto createGrapesDto, int VinesId)
         {
             return new Grapes
             {
-                Name = createGrapesDto.Name
+                Name = createGrapesDto.Name,
+                VinesId = VinesId,
             };
         }
     }

@@ -64,5 +64,10 @@ namespace api.Repository
 
             return grapesModel;
         }
+
+        public async Task<bool> VinesExistsAsync(int VinesId)
+        {
+            return await _context.Vines.AnyAsync(x => x.Id == VinesId);
+        }
     }
 }

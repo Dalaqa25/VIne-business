@@ -45,10 +45,16 @@ namespace api.Controllers
             return Ok(grapes.ToGrapesDto());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateGrapesDto createGrapesDto)
+        [HttpPost("{VinesId}")]
+        public async Task<IActionResult> Create([FromRoute] int VinesId, CreateGrapesDto createGrapesDto)
         {   
-            var grapesModel = createGrapesDto.ToGrapesToCreateDto();
+            if(!await _grapesRepo.VinesExistsAsync(VinesId))
+            {
+                return BadRequest("Not Found!");
+            }
+
+
+            var grapesModel = createGrapesDto.ToGrapesFromCreate(VinesId);
             await _grapesRepo.CreateAsync(grapesModel);
             return CreatedAtAction(nameof(GetById), new {id = grapesModel.Id},grapesModel.ToGrapesDto()); 
         }

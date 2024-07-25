@@ -1,5 +1,4 @@
-﻿
-namespace api.Dtos
+﻿namespace api.Dtos
 {
     public class CreateGrapesDto
     {
