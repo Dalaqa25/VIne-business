@@ -11,8 +11,8 @@ namespace api.Mapper
             {
                 Id = VinesModel.Id,
                 Name = VinesModel.Name,
-                CreatedOn = VinesModel.CreatedOn,
-                Grape = VinesModel.Grape.Select(c => c.ToGrapesDto()).ToList()
+                CreatedOn = VinesModel.CreatedOn,  
+                Grape = VinesModel.Grapes.Select(g => g.ToGrapesDto()).ToList(),         
             };
         }
 
@@ -21,7 +21,7 @@ namespace api.Mapper
             return new Vines
             {
                 Name = createVinesDto.Name,
-                CreatedOn = createVinesDto.CreatedOn
+                CreatedOn = createVinesDto.CreatedOn,
             };
         }
     }

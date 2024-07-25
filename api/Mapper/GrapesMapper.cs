@@ -12,7 +12,8 @@ namespace api.Mapper
             return new GrapesDto
             {
                 Id = grapesModel.Id,
-                Name = grapesModel.Name
+                Name = grapesModel.Name,
+                VinesId = grapesModel.VinesId,  
             };
         }
 

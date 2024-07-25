@@ -1,4 +1,6 @@
-﻿namespace api.Models
+﻿using System.Collections.ObjectModel;
+
+namespace api.Models
 {
     public class Vines
     {
@@ -7,6 +9,6 @@
         public DateTime CreatedOn {get; set;} = DateTime.Now;
 
         //Navigation property
-        public List<Grapes> Grape {get; set;} = new List<Grapes>();
+        public List<Grapes> Grapes {get; set;} = new List<Grapes>();
     }
 }
