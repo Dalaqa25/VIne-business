@@ -25,6 +25,9 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var grapes = await _grapesRepo.GetAllAsync();
 
             var GrapesDto = grapes.Select(s => s.ToGrapesDto());
@@ -32,9 +35,12 @@ namespace api.Controllers
             return Ok(GrapesDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var grapes = await _grapesRepo.GetById(id);
 
             if (grapes == null)
@@ -45,9 +51,12 @@ namespace api.Controllers
             return Ok(grapes.ToGrapesDto());
         }
 
-        [HttpPost("{VinesId}")]
+        [HttpPost("{VinesId:int}")]
         public async Task<IActionResult> Create([FromRoute] int VinesId, CreateGrapesDto createGrapesDto)
         {   
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if(!await _grapesRepo.VinesExistsAsync(VinesId))
             {
                 return BadRequest("Not Found!");
@@ -60,9 +69,12 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateGrapesDto updateGrapes)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var grapesModel = await _grapesRepo.UpdateAsync(id, updateGrapes);
 
             if (grapesModel == null)
@@ -74,7 +86,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delte([FromRoute] int id)
         {
             var grapesModel = await _grapesRepo.DeleteAsync(id);

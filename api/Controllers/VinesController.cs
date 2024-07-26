@@ -23,6 +23,9 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var vines = await _vinesRepo.GetAllAsync();
 
             var vinesDto = vines.Select(s => s.ToVinesDto());
@@ -30,9 +33,12 @@ namespace api.Controllers
             return Ok(vinesDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var vines = await _vinesRepo.GetByIdAsync(id);
 
             if (vines == null)
@@ -46,15 +52,21 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateVinesDto createVinesDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var vinesModel = createVinesDto.ToVinesFromCreate();
             await _vinesRepo.CreateAsync(vinesModel);
             return CreatedAtAction(nameof(GetById), new {id = vinesModel.Id}, vinesModel.ToVinesDto());
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateVinesDto updateVinesDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var vinesModel = await _vinesRepo.UpdateAsync(id,updateVinesDto);
             
             if (vinesModel == null)
@@ -65,9 +77,12 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delte([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var vinesModel = await _vinesRepo.DeleteAsync(id);
 
             if (vinesModel == null)
