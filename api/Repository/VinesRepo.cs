@@ -1,5 +1,6 @@
 ﻿using api.Data;
 using api.Dtos;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -39,9 +40,16 @@ public class VinesRepo : VinesInterface
         return vinesModel;
     }
 
-    public async Task<List<Vines>> GetAllAsync()
+    public async Task<List<Vines>> GetAllAsync(VinesQuery vinesQuery)
     {
-        return await _context.Vines.Include(v => v.Grapes).ToListAsync();
+        var vinesModel = _context.Vines.Include(v => v.Grapes).AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(vinesQuery.Name))
+        {
+           vinesModel = vinesModel.Where(s => s.Name.Contains(vinesQuery.Name));
+        }
+        
+        return await vinesModel.ToListAsync();
     }
 
     public async Task<Vines?> GetByIdAsync(int id)

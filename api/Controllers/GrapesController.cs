@@ -7,6 +7,7 @@ using api.Repository;
 using api.Interfaces;
 using api.Dtos;
 using api.Dtos.Grapes;
+using api.Helpers;
 
 namespace api.Controllers
 {
@@ -23,12 +24,12 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GrapesQuery grapesQuery)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var grapes = await _grapesRepo.GetAllAsync();
+            var grapes = await _grapesRepo.GetAllAsync(grapesQuery);
 
             var GrapesDto = grapes.Select(s => s.ToGrapesDto());
 

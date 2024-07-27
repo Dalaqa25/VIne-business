@@ -1,5 +1,6 @@
 ﻿using api.Data;
 using api.Dtos;
+using api.Helpers;
 using api.Interfaces;
 using api.Mapper;
 using api.Models;
@@ -39,9 +40,16 @@ namespace api.Repository
             return grapesModel;
         }
 
-        public async Task<List<Grapes>> GetAllAsync()
+        public async Task<List<Grapes>> GetAllAsync(GrapesQuery grapesQuery)
         {
-            return await _context.Grapes.ToListAsync();
+            var grapesModel = _context.Grapes.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(grapesQuery.Name))
+            {
+                grapesModel = grapesModel.Where(s => s.Name.Contains(grapesQuery.Name));
+            }
+
+            return await grapesModel.ToListAsync();
         }
 
         public async Task<Grapes?> GetById(int id)

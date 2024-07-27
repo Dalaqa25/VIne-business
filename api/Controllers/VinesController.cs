@@ -1,5 +1,6 @@
 ﻿using api.Data;
 using api.Dtos;
+using api.Helpers;
 using api.Interfaces;
 using api.Mapper;
 using api.Models;
@@ -21,12 +22,12 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] VinesQuery vinesQuery)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vines = await _vinesRepo.GetAllAsync();
+            var vines = await _vinesRepo.GetAllAsync(vinesQuery);
 
             var vinesDto = vines.Select(s => s.ToVinesDto());
 
