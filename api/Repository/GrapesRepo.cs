@@ -49,7 +49,9 @@ namespace api.Repository
                 grapesModel = grapesModel.Where(s => s.Name.Contains(grapesQuery.Name));
             }
 
-            return await grapesModel.ToListAsync();
+            var skipNumber = (grapesQuery.pageNumber - 1) * grapesQuery.pageSize;
+
+            return await grapesModel.Skip(skipNumber).Take(grapesQuery.pageSize).ToListAsync();
         }
 
         public async Task<Grapes?> GetById(int id)

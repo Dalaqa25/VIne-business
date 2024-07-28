@@ -48,8 +48,10 @@ public class VinesRepo : VinesInterface
         {
            vinesModel = vinesModel.Where(s => s.Name.Contains(vinesQuery.Name));
         }
+
+       var skipNumber = (vinesQuery.pageNumber - 1) * vinesQuery.pageSize;
         
-        return await vinesModel.ToListAsync();
+        return await vinesModel.Skip(skipNumber).Take(vinesQuery.pageSize).ToListAsync();
     }
 
     public async Task<Vines?> GetByIdAsync(int id)
