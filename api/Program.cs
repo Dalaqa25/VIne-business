@@ -18,13 +18,18 @@ builder.Services.AddControllers()
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => {
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefualtConnection"));
 });
+
+
+
 
 //connecting interface to repo
 builder.Services.AddScoped<GrapesInterface, GrapesRepo>();
 builder.Services.AddScoped<VinesInterface, VinesRepo>();
+
 
 var app = builder.Build();
 
