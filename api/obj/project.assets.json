@@ -4688,11 +4688,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "c:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\api.csproj",
+      "projectPath": "C:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\api.csproj",
       "packagesPath": "C:\\Users\\giorgi\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\obj\\",
+      "outputPath": "C:\\Users\\giorgi\\source\\repos\\VIne-business\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\giorgi\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4713,11 +4713,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
